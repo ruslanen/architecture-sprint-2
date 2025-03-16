@@ -3,7 +3,13 @@
 Доступ на просмотр и комментирование:
 https://drive.google.com/file/d/1tLimns0A9_5m1iyAuAgCemsYnsjSvVKv/view?usp=sharing
 
-1. Подключитесь к серверу конфигурации и сделайте инициализацию:
+1. Запустите разворачивание контейнеров:
+
+```
+docker compose -f sharding-repl-cache.yaml up -d
+```
+
+2. Подключитесь к серверу конфигурации и сделайте инициализацию:
 
 ```
 docker exec -it configSrv mongosh --eval '
@@ -25,7 +31,7 @@ docker exec -it configSrv mongosh --eval '
 docker exec -it configSrv mongosh --eval 'rs.status()'
 ```
 
-2. Инициализируйте шарды:
+3. Инициализируйте шарды:
 
 Первый шард:
 ```
@@ -55,7 +61,7 @@ rs.initiate(
 '
 ```
 
-3. Инцициализируйте роутер и наполните его тестовыми данными:
+4. Инцициализируйте роутер и наполните его тестовыми данными:
 
 ```
 docker exec -it mongos_router mongosh --port 27020 --eval '
@@ -76,7 +82,7 @@ docker exec -it mongos_router mongosh --port 27020 --eval '
 
 ```
 
-4. Выполните запрос к приложению, размещенного на порту 8080:
+5. Выполните запрос к приложению, размещенного на порту 8080:
 
 ```
 curl http://158.160.7.64:8080 | jq
