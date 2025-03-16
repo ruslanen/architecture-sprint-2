@@ -22,7 +22,7 @@ docker exec -it configSrv mongosh --eval '
 До этой инициализации компонент mongos_router будет сыпать ошибками в логах.
 Чтобы посмотреть статус можно выполнить:
 ```
-rs.status()
+docker exec -it configSrv mongosh --eval 'rs.status()'
 ```
 
 2. Инициализируйте шарды:
